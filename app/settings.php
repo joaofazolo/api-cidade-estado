@@ -14,6 +14,11 @@ return function (ContainerBuilder $containerBuilder) {
                 'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
                 'level' => Logger::DEBUG,
             ],
+            'database' => [
+                'host' => 'mongo',
+                'user' => 'root',
+                'password' => 'root'
+            ]
         ],
     ]);
 };
