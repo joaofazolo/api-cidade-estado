@@ -7,8 +7,10 @@ use App\Persistence\CidadeRepository;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Respect\Validation\Exceptions\ValidationException;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
+use Respect\Validation\Validator as validator;
 
 class CidadeController
 {
@@ -37,6 +39,14 @@ class CidadeController
     {
         $data = $request->getParsedBody();
 
+        try {
+            $this->validateInsert($data);
+        } catch (ValidationException $e) {
+            $response->getBody()->write($e->getMessage());
+
+            return $response->withHeader('Content-type', 'application\json');
+        }
+
         $cidade = new Cidade(null, $data['nome'], $data['estado_id'], date('Y-m-d H:i:s'), date('Y-m-d H:i:s'));
         $cidadeRepository = new CidadeRepository($this->database);
         $cidade = $cidadeRepository->insert($cidade);
@@ -45,5 +55,12 @@ class CidadeController
 
         return $response->withHeader('Content-type', 'application\json');
         
+    }
+
+    private function validateInsert($data)
+    {
+        validator::key('nome')->check($data);
+
+        validator::key('estado_id', validator::numericVal())->check($data);
     }
 }

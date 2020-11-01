@@ -57,7 +57,7 @@ class CidadeRepository extends Repository
 
         $insertOneResult = $collection->insertOne($cidade->jsonSerialize());
 
-        $cidade->setId($insertOneResult->getInsertedId());
+        $cidade->setId((string)$insertOneResult->getInsertedId());
 
         return $cidade;
     }
