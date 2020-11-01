@@ -4,15 +4,39 @@ namespace App\Persistence;
 
 use App\Domain\Cidade\Cidade;
 use App\Domain\User\UserNotFoundException;
+use stdClass;
 
 class CidadeRepository extends Repository
 {
     /**
      * {@inheritdoc}
      */
-    public function findAll(): array
+    public function findAll($limit, $offset)
     {
-        return array_values($this->users);
+        $collection = $this->client->cidades;
+
+        $cursor = $collection->find([], ['limit' => $limit, 'skip' => $offset]);
+
+        $cidades = [];
+
+        foreach ($cursor as $cidadeDocumento) {
+
+            $cidade = new stdClass();
+
+            $cidade->id = (string)$cidadeDocumento['_id'];
+
+            $cidade->name = $cidadeDocumento['nome'];
+
+            $cidade->estadoId = $cidadeDocumento['estadoId'];
+
+            $cidade->dataCriacao = $cidadeDocumento['dataCriacao'];
+
+            $cidade->dataAtualizacao = $cidadeDocumento['dataAtualizacao'];
+
+            $cidades[] = $cidade;
+        }
+        
+        return $cidades;
     }
 
     /**
@@ -29,7 +53,7 @@ class CidadeRepository extends Repository
 
     public function insert(Cidade $cidade)
     {
-        $collection = $this->client->zoox->cidades;
+        $collection = $this->client->cidades;
 
         $insertOneResult = $collection->insertOne($cidade->jsonSerialize());
 

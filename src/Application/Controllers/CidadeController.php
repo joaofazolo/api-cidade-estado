@@ -21,8 +21,16 @@ class CidadeController
 
     public function index(RequestInterface $request, ResponseInterface $response)
     {
+        $limit = (int)$request->getQueryParams()['limit'];
+        $offset = (int)$request->getQueryParams()['offset'];
+
         $cidadeRepository = new CidadeRepository($this->database);
-        return $response;
+
+        $cidades = $cidadeRepository->findAll($limit, $offset);
+
+        $response->getBody()->write(json_encode($cidades));
+
+        return $response->withHeader('Content-type', 'application\json');
     }
 
     public function insert(Request $request, Response $response)

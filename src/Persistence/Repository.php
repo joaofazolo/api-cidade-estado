@@ -10,6 +10,6 @@ class Repository
 
     public function __construct($database)
     {
-        $this->client = new Client("mongodb://" . $database['user'] . ":" . $database['password'] . "@" . $database['host']);
+        $this->client = (new Client("mongodb://" . $database['user'] . ":" . $database['password'] . "@" . $database['host']))->zoox;
     }
 }
