@@ -3,31 +3,43 @@
 namespace App\Domain;
 
 use JsonSerializable;
-
+/**
+ * @OA\Schema()
+ */
 class Cidade implements JsonSerializable
 {
     /**
-     * @var string|null
+     * ID da cidade
+     * @var string
+     * * @OA\Property()
      */
     private $id;
 
     /**
+     * Nome da cidade
      * @var string
+     * @OA\Property()
      */
     private $nome;
 
     /**
+     * ID do estado que a cidade pertence
      * @var string
+     * @OA\Property()
      */
     private $estadoId;
 
     /**
+     * Data de criação
      * @var string
+     * @OA\Property()
      */
     private $dataCriacao;
 
     /**
+     * Data de atualização
      * @var string
+     * @OA\Property()
      */
     private $dataAtualizacao;
 

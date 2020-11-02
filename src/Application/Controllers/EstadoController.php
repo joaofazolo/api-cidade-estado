@@ -20,6 +20,17 @@ class EstadoController
         $this->repository = $repository;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/estado",
+     *     tags={"Estado"},
+     *     @OA\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @OA\JsonContent(@OA\Items(ref="#/components/schemas/Estado")),
+     *      )
+     * )
+     */
     public function index(Request $request, Response $response)
     {
         $limit = isset($request->getQueryParams()['limit']) ? (int)$request->getQueryParams()['limit'] : null;
@@ -33,6 +44,34 @@ class EstadoController
         return $response->withHeader('Content-type', 'application\json');
     }
 
+    /**
+     * @OA\Post(
+     *     path="/estado",
+     *     tags={"Estado"},
+     *     @OA\RequestBody(
+     *          description="successful operation",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="nome",
+     *                  type="string",
+     *                  description="O Nome do estado"
+     *              ),
+     *              @OA\Property(property="abreviacao",
+     *                  type="string",
+     *                  description="A abreviação do estado"
+     *              ),
+     *          ),
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/Estado"),
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Falha de validação"
+     *      )
+     * )
+     */
     public function insert(Request $request, Response $response)
     {
         $data = $request->getParsedBody();
@@ -54,6 +93,21 @@ class EstadoController
         return $response->withHeader('Content-type', 'application\json');
     }
 
+    /**
+     * @OA\Get(
+     *     path="/estado/:estadoId",
+     *     tags={"Estado"},
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/Estado"),
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Estado não encontrado"
+     *      )
+     * )
+     */
     public function show(Request $request, Response $response, $args)
     {
         try {
@@ -69,6 +123,20 @@ class EstadoController
         return $response->withHeader('Content-type', 'application\json');
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/estado/:estadoId",
+     *     tags={"Estado"},
+     *     @OA\Response(
+     *          response=204,
+     *          description="Successful operation"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Estado não encontrado"
+     *      )
+     * )
+     */
     public function delete(Request $request, Response $response, $args)
     {
         try {
@@ -80,9 +148,27 @@ class EstadoController
         }
         $response->getBody()->write(json_encode(['message' => 'Estado deletado com sucesso']));
 
-        return $response->withHeader('Content-type', 'application\json');
+        return $response->withHeader('Content-type', 'application\json')->withStatus(204);
     }
 
+    /**
+     * @OA\Put(
+     *     path="/estado/:estadoId",
+     *     tags={"Estado"},
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Estado não encontrado"
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Falha de validação"
+     *      )
+     * )
+     */
     public function update(Request $request, Response $response, $args)
     {
         try {

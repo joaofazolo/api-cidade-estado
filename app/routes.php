@@ -6,6 +6,19 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 
+/**
+ * @OA\Info(
+ *      title="API de cidades e estados", 
+ *      version="1.0",
+ *      description="API para CRUD de cidades e estados desenvolvida em php, slim e mongodb",
+ *      @OA\Contact(email="jvfazolo@gmail.com", name="João Vitor Fazolo")
+ * )
+ */
+
+ /**
+ * @OA\Server(url="http://localhost:8080")
+ */
+
 return function (App $app) {
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
         // CORS Pre-Flight OPTIONS Request Handler

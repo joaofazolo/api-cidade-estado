@@ -3,31 +3,43 @@
 namespace App\Domain;
 
 use JsonSerializable;
-
+/**
+ * @OA\Schema()
+ */
 class Estado implements JsonSerializable
 {
     /**
-     * @var string|null
+     * O ID do estado
+     * @var string
+     * @OA\Property()
      */
     private $id;
 
     /**
+     * O nome do estado
      * @var string
+     * @OA\Property()
      */
     private $nome;
 
     /**
+     * A abreviação do estado
      * @var string
+     * @OA\Property()
      */
     private $abreviacao;
 
     /**
+     * A data de criação do estado
      * @var string
+     * @OA\Property()
      */
     private $dataCriacao;
 
     /**
+     * A data de atualização do estado
      * @var string
+     * @OA\Property()
      */
     private $dataAtualizacao;
 

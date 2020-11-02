@@ -25,6 +25,17 @@ class CidadeController
         $this->estadoRepository = $estadoRepository;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/cidade",
+     *     tags={"Cidade"},
+     *     @OA\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @OA\JsonContent(@OA\Items(ref="#/components/schemas/Cidade")),
+     *      )
+     * )
+     */
     public function index(RequestInterface $request, ResponseInterface $response)
     {
         $limit = isset($request->getQueryParams()['limit']) ? (int)$request->getQueryParams()['limit'] : null;
@@ -38,6 +49,34 @@ class CidadeController
         return $response->withHeader('Content-type', 'application\json');
     }
 
+    /**
+     * @OA\Post(
+     *     path="/cidade",
+     *     tags={"Cidade"},
+     *     @OA\RequestBody(
+     *          description="successful operation",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="nome",
+     *                  type="string",
+     *                  description="O Nome da cidade"
+     *              ),
+     *              @OA\Property(property="estadoId",
+     *                  type="string",
+     *                  description="ID do estado"
+     *              ),
+     *          ),
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/Cidade"),
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Falha de validação"
+     *      )
+     * )
+     */
     public function insert(Request $request, Response $response)
     {
         $data = $request->getParsedBody();
@@ -66,6 +105,21 @@ class CidadeController
         
     }
 
+    /**
+     * @OA\Get(
+     *     path="/cidade/:cidadeId",
+     *     tags={"Cidade"},
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/Cidade"),
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Cidade não encontrada"
+     *      )
+     * )
+     */
     public function show(Request $request, Response $response, $args)
     {
         try {
@@ -81,6 +135,24 @@ class CidadeController
         return $response->withHeader('Content-type', 'application\json');
     }
 
+    /**
+     * @OA\Put(
+     *     path="/cidade/:cidadeId",
+     *     tags={"Cidade"},
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Cidade não encontrada"
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Falha de validação"
+     *      )
+     * )
+     */
     public function update(Request $request, Response $response, $args)
     {
         try {
@@ -102,6 +174,20 @@ class CidadeController
         return $response->withHeader('Content-type', 'application\json');
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/cidade/:cidadeId",
+     *     tags={"Cidade"},
+     *     @OA\Response(
+     *          response=204,
+     *          description="Successful operation"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Cidade não encontrada"
+     *      )
+     * )
+     */
     public function delete(Request $request, Response $response, $args)
     {
         try {

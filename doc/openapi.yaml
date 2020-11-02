@@ -1,0 +1,196 @@
+openapi: 3.0.0
+info:
+  title: 'API de cidades e estados'
+  description: 'API para CRUD de cidades e estados desenvolvida em php, slim e mongodb'
+  contact:
+    name: 'João Vitor Fazolo'
+    email: jvfazolo@gmail.com
+  version: '1.0'
+servers:
+  -
+    url: 'http://localhost:8080'
+paths:
+  /cidade:
+    get:
+      tags:
+        - Cidade
+      operationId: 'App\Application\Controllers\CidadeController::index'
+      responses:
+        '200':
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Cidade'
+    post:
+      tags:
+        - Cidade
+      operationId: 'App\Application\Controllers\CidadeController::insert'
+      requestBody:
+        description: 'successful operation'
+        content:
+          application/json:
+            schema:
+              properties:
+                nome:
+                  description: 'O Nome da cidade'
+                  type: string
+                estadoId:
+                  description: 'ID do estado'
+                  type: string
+              type: object
+      responses:
+        '200':
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cidade'
+        '422':
+          description: 'Falha de validação'
+  '/cidade/:cidadeId':
+    get:
+      tags:
+        - Cidade
+      operationId: 'App\Application\Controllers\CidadeController::show'
+      responses:
+        '200':
+          description: 'Successful operation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cidade'
+        '404':
+          description: 'Cidade não encontrada'
+    put:
+      tags:
+        - Cidade
+      operationId: 'App\Application\Controllers\CidadeController::update'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '404':
+          description: 'Cidade não encontrada'
+        '422':
+          description: 'Falha de validação'
+    delete:
+      tags:
+        - Cidade
+      operationId: 'App\Application\Controllers\CidadeController::delete'
+      responses:
+        '204':
+          description: 'Successful operation'
+        '404':
+          description: 'Cidade não encontrada'
+  /estado:
+    get:
+      tags:
+        - Estado
+      operationId: 'App\Application\Controllers\EstadoController::index'
+      responses:
+        '200':
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Estado'
+    post:
+      tags:
+        - Estado
+      operationId: 'App\Application\Controllers\EstadoController::insert'
+      requestBody:
+        description: 'successful operation'
+        content:
+          application/json:
+            schema:
+              properties:
+                nome:
+                  description: 'O Nome do estado'
+                  type: string
+                abreviacao:
+                  description: 'A abreviação do estado'
+                  type: string
+              type: object
+      responses:
+        '200':
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Estado'
+        '422':
+          description: 'Falha de validação'
+  '/estado/:estadoId':
+    get:
+      tags:
+        - Estado
+      operationId: 'App\Application\Controllers\EstadoController::show'
+      responses:
+        '200':
+          description: 'Successful operation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Estado'
+        '404':
+          description: 'Estado não encontrado'
+    put:
+      tags:
+        - Estado
+      operationId: 'App\Application\Controllers\EstadoController::update'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '404':
+          description: 'Estado não encontrado'
+        '422':
+          description: 'Falha de validação'
+    delete:
+      tags:
+        - Estado
+      operationId: 'App\Application\Controllers\EstadoController::delete'
+      responses:
+        '204':
+          description: 'Successful operation'
+        '404':
+          description: 'Estado não encontrado'
+components:
+  schemas:
+    Cidade:
+      properties:
+        id:
+          description: 'ID da cidade'
+          type: string
+        nome:
+          description: 'Nome da cidade'
+          type: string
+        estadoId:
+          description: 'ID do estado que a cidade pertence'
+          type: string
+        dataCriacao:
+          description: 'Data de criação'
+          type: string
+        dataAtualizacao:
+          description: 'Data de atualização'
+          type: string
+      type: object
+    Estado:
+      properties:
+        id:
+          description: 'O ID do estado'
+          type: string
+        nome:
+          description: 'O nome do estado'
+          type: string
+        abreviacao:
+          description: 'A abreviação do estado'
+          type: string
+        dataCriacao:
+          description: 'A data de criação do estado'
+          type: string
+        dataAtualizacao:
+          description: 'A data de atualização do estado'
+          type: string
+      type: object
