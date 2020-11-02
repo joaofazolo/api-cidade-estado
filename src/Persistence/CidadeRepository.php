@@ -52,9 +52,6 @@ class CidadeRepository extends Repository
         return $cidades;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findById(string $id): Cidade
     {
         $collection = $this->client->cidades;

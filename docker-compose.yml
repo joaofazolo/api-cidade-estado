@@ -11,6 +11,9 @@ services:
         command: php -S 0.0.0.0:8080 -t public
         environment:
             docker: "true"
+            db_host: "mongo"
+            db_user: "root"
+            db_password: "root"
         ports:
             - 8080:8080
         volumes:

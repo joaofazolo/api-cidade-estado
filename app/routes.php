@@ -23,4 +23,8 @@ return function (App $app) {
     $app->get('/cidade/{id}', CidadeController::class . ':show');
     $app->put('/cidade/{id}', CidadeController::class . ':update');
     $app->delete('/cidade/{id}', CidadeController::class . ':delete');
+
+    $app->get('/home', function ($request, $response, $args) {
+            return $this->get('view')->render($response, 'home.php', []);
+    });
 };

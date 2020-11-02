@@ -15,9 +15,9 @@ return function (ContainerBuilder $containerBuilder) {
                 'level' => Logger::DEBUG,
             ],
             'database' => [
-                'host' => 'mongo',
-                'user' => 'root',
-                'password' => 'root'
+                'host' => isset($_ENV['db_host']) ? $_ENV['db_host'] : 'localhost',
+                'user' => isset($_ENV['db_user']) ? $_ENV['db_user'] : 'root',
+                'password' => isset($_ENV['db_password']) ? $_ENV['db_password'] : 'root'
             ]
         ],
     ]);

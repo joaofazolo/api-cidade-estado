@@ -28,8 +28,10 @@
         "monolog/monolog": "^2.1",
         "php-di/php-di": "^6.2",
         "respect/validation": "^2.1",
+        "slim/php-view": "^3.0",
         "slim/psr7": "^1.1",
-        "slim/slim": "^4.5"
+        "slim/slim": "^4.5",
+        "zircote/swagger-php": "^3.1"
     },
     "require-dev": {
         "jangregor/phpstan-prophecy": "^0.8.0",

@@ -32,6 +32,10 @@ $repositories($containerBuilder);
 // Build PHP-DI Container instance
 $container = $containerBuilder->build();
 
+$container->set('view', function () {
+    return new \Slim\Views\PhpRenderer(__DIR__ . '/../src/View/');
+});
+
 // Instantiate the app
 AppFactory::setContainer($container);
 $app = AppFactory::create();
