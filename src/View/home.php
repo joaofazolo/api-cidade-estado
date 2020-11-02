@@ -20,7 +20,6 @@
                     <option value="dataCriacao">Data de criação</option>
                     <option value="dataAtualizacao">Data de atualização</option>
                 </select>
-                {{campoOrdenacao}}
             </div>
             
             <div>
@@ -29,7 +28,6 @@
                     <option value="ASC" selected>Ascendente</option>
                     <option value="DESC">Descendente</option>
                 </select>
-                {{tipoOrdenacao}}
             </div>
         </div>
         <input type="text" v-model="searchString" id="search">
@@ -70,16 +68,11 @@ var app = new Vue({
       buscarEstado: function () {
         axios.get('/estado?search='+this.searchString + '&sortField=' + this.campoOrdenacao + '&sortType=' + this.tipoOrdenacao)
         .then((response) => {
-            // handle success
             this.estados = response.data;
         })
         .catch((error) => {
-            // handle error
             console.log(error);
         })
-        .then(function () {
-            // always executed
-        });
       }
   }
 })
