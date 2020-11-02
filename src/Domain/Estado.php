@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Domain\Cidade;
+namespace App\Domain;
 
 use JsonSerializable;
 
-class Cidade implements JsonSerializable
+class Estado implements JsonSerializable
 {
     /**
      * @var string|null
@@ -19,7 +19,7 @@ class Cidade implements JsonSerializable
     /**
      * @var string
      */
-    private $estadoId;
+    private $abreviacao;
 
     /**
      * @var string
@@ -33,18 +33,17 @@ class Cidade implements JsonSerializable
 
     /**
      * @param string|null  $id
-     * @param string    $nome
-     * @param string   $estadoId
-     * @param string    $lastName
-     * @param string    $dataCriacao
-     * @param string    $dataAtualizacao
+     * @param string       $nome
+     * @param string       $abreviacao
+     * @param string|null  $dataCriacao
+     * @param string|null  $dataAtualizacao
      * 
      */
-    public function __construct(?string $id, string $nome, string $estadoId, string $dataCriacao, string $dataAtualizacao)
+    public function __construct(?string $id, string $nome, string $abreviacao, ?string $dataCriacao, ?string $dataAtualizacao)
     {
         $this->id = $id;
         $this->nome = $nome;
-        $this->estadoId = $estadoId;
+        $this->abreviacao = $abreviacao;
         $this->dataCriacao = $dataCriacao;
         $this->dataAtualizacao = $dataAtualizacao;
 
@@ -72,11 +71,11 @@ class Cidade implements JsonSerializable
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getEstadoId(): string
+    public function getAbreviacao(): string
     {
-        return $this->estadoId;
+        return $this->abreviacao;
     }
 
     /**
@@ -103,7 +102,7 @@ class Cidade implements JsonSerializable
         $array = [
             'id' => $this->id,
             'nome' => $this->nome,
-            'estadoId' => $this->estadoId,
+            'abreviacao' => $this->abreviacao,
             'dataCriacao' => $this->dataCriacao,
             'dataAtualizacao' => $this->dataAtualizacao,
         ];

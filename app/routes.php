@@ -1,13 +1,10 @@
 <?php
-declare(strict_types=1);
 
-use App\Application\Actions\User\ListUsersAction;
-use App\Application\Actions\User\ViewUserAction;
 use App\Application\Controllers\CidadeController;
+use App\Application\Controllers\EstadoController;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
-use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 
 return function (App $app) {
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
@@ -15,17 +12,15 @@ return function (App $app) {
         return $response;
     });
 
+    $app->post('/estado', EstadoController::class . ':insert');
+    $app->get('/estado', EstadoController::class . ':index');
+    $app->get('/estado/{id}', EstadoController::class . ':show');
+    $app->put('/estado/{id}', EstadoController::class . ':update');
+    $app->delete('/estado/{id}', EstadoController::class . ':delete');
+
     $app->post('/cidade', CidadeController::class . ':insert');
-    
     $app->get('/cidade', CidadeController::class . ':index');
-
-    $app->get('/', function (Request $request, Response $response) {
-        $response->getBody()->write('Hello world!');
-        return $response;
-    });
-
-    $app->group('/users', function (Group $group) {
-        $group->get('', ListUsersAction::class);
-        $group->get('/{id}', ViewUserAction::class);
-    });
+    $app->get('/cidade/{id}', CidadeController::class . ':show');
+    $app->put('/cidade/{id}', CidadeController::class . ':update');
+    $app->delete('/cidade/{id}', CidadeController::class . ':delete');
 };

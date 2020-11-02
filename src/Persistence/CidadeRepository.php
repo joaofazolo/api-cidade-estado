@@ -3,35 +3,48 @@
 namespace App\Persistence;
 
 use App\Domain\Cidade\Cidade;
-use App\Domain\User\UserNotFoundException;
-use stdClass;
+use DI\NotFoundException;
+use Exception;
 
 class CidadeRepository extends Repository
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function findAll($limit, $offset)
+    public function findAll($search, $limit, $offset)
     {
         $collection = $this->client->cidades;
 
-        $cursor = $collection->find([], ['limit' => $limit, 'skip' => $offset]);
+        $searchArray = [];
+
+        if ($search) {
+            $searchArray = [
+                '$or' => [
+                    ['nome' => new \MongoDB\BSON\Regex("^$search", 'i')],
+                    ['abreviacao' => new \MongoDB\BSON\Regex("^$search", 'i')]
+                ]
+            ];
+        }
+
+        $options = [];
+
+        if ($limit) {
+            $options['limit'] = $limit;
+        }
+
+        if ($offset) {
+            $options['skip'] = $offset;
+        }
+
+        $cursor = $collection->find($searchArray, $options);
 
         $cidades = [];
 
         foreach ($cursor as $cidadeDocumento) {
-
-            $cidade = new stdClass();
-
-            $cidade->id = (string)$cidadeDocumento['_id'];
-
-            $cidade->name = $cidadeDocumento['nome'];
-
-            $cidade->estadoId = $cidadeDocumento['estadoId'];
-
-            $cidade->dataCriacao = $cidadeDocumento['dataCriacao'];
-
-            $cidade->dataAtualizacao = $cidadeDocumento['dataAtualizacao'];
+            $cidade = new Cidade(
+                (string)$cidadeDocumento['_id'],
+                $cidadeDocumento['nome'],
+                $cidadeDocumento['estadoId'],
+                $cidadeDocumento['dataCriacao'],
+                $cidadeDocumento['dataAtualizacao']
+            );
 
             $cidades[] = $cidade;
         }
@@ -44,21 +57,60 @@ class CidadeRepository extends Repository
      */
     public function findById(int $id): Cidade
     {
-        if (!isset($this->users[$id])) {
-            throw new UserNotFoundException();
+        $collection = $this->client->cidades;
+
+        $documento = $collection->findOne(['_id' =>  new \MongoDB\BSON\ObjectId($id)]);
+
+        if (is_null($documento)) {
+            throw new Exception('Cidade nao encotrado');
         }
 
-        return $this->users[$id];
+        $cidade = new Cidade((string)$documento->_id, $documento['nome'], $documento['estadoId'], $documento['dataCriacao'], $documento['dataAtualizacao']);
+
+        return $cidade;
     }
 
-    public function insert(Cidade $cidade)
+    public function insert(Cidade $cidade): Cidade
     {
         $collection = $this->client->cidades;
 
-        $insertOneResult = $collection->insertOne($cidade->jsonSerialize());
+        $insertOneResult = $collection->insertOne($cidade->jsonSerialize(true));
 
         $cidade->setId((string)$insertOneResult->getInsertedId());
 
         return $cidade;
+    }
+
+    public function update($id, $attrs): bool
+    {
+        $collection = $this->client->cidades;
+
+        $updateResult = $collection->updateOne(
+            ['_id' => new \MongoDB\BSON\ObjectId($id)],
+            ['$set' => [
+                'nome' => $attrs['nome'],
+                'estadoId' => $attrs['estadoId'],
+                'dataAtualizacao' => date('Y-m-d H:i:s')
+            ]]
+        );
+
+        if ($updateResult->getMatchedCount() < 1) {
+            throw new NotFoundException('Cidade não encontrado');
+        }
+
+        return true;
+    }
+
+    public function delete($id)
+    {
+        $collection = $this->client->cidades;
+
+        $deleteResult = $collection->deleteOne(['_id' => new \MongoDB\BSON\ObjectId($id)]);
+
+        if($deleteResult->getDeletedCount() < 1) {
+            throw new NotFoundException('Cidade não encontrado');
+        }
+
+        return true;
     }
 }
