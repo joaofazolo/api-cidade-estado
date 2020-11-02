@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Cidade;
+namespace App\Domain;
 
 use JsonSerializable;
 

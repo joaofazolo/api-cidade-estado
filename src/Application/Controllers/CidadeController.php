@@ -2,7 +2,7 @@
 
 namespace App\Application\Controllers;
 
-use App\Domain\Cidade\Cidade;
+use App\Domain\Cidade;
 use App\Exception\EstadoNotFoundException;
 use App\Persistence\CidadeRepository;
 use App\Persistence\EstadoRepository;
@@ -19,12 +19,10 @@ class CidadeController
     private $repository;
     private $estadoRepository;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(CidadeRepository $repository, EstadoRepository $estadoRepository)
     {
-        $database = $container->get('settings')['database'];
-        
-        $this->repository = new CidadeRepository($database);
-        $this->estadoRepository = new EstadoRepository($database);
+        $this->repository = $repository;
+        $this->estadoRepository = $estadoRepository;
     }
 
     public function index(RequestInterface $request, ResponseInterface $response)

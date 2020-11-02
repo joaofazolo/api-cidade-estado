@@ -15,11 +15,9 @@ class EstadoController
 {
     private $repository;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(EstadoRepository $repository)
     {
-        $database = $container->get('settings')['database'];
-
-        $this->repository = new EstadoRepository($database);
+        $this->repository = $repository;
     }
 
     public function index(Request $request, Response $response)

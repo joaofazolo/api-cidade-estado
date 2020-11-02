@@ -2,7 +2,7 @@
 
 namespace App\Persistence;
 
-use App\Domain\Cidade\Cidade;
+use App\Domain\Cidade;
 use DI\NotFoundException;
 use Exception;
 
@@ -55,7 +55,7 @@ class CidadeRepository extends Repository
     /**
      * {@inheritdoc}
      */
-    public function findById(int $id): Cidade
+    public function findById(string $id): Cidade
     {
         $collection = $this->client->cidades;
 
