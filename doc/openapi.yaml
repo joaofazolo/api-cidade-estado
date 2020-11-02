@@ -54,6 +54,10 @@ paths:
               schema:
                 items:
                   $ref: '#/components/schemas/Cidade'
+        '403':
+          $ref: '#/components/responses/403'
+        '401':
+          $ref: '#/components/responses/401'
       security:
         -
           apiKey: []
@@ -83,6 +87,10 @@ paths:
                 $ref: '#/components/schemas/Cidade'
         '422':
           description: 'Falha de validação'
+        '403':
+          $ref: '#/components/responses/403'
+        '401':
+          $ref: '#/components/responses/401'
       security:
         -
           apiKey: []
@@ -108,6 +116,10 @@ paths:
                 $ref: '#/components/schemas/Cidade'
         '404':
           description: 'Cidade não encontrada'
+        '403':
+          $ref: '#/components/responses/403'
+        '401':
+          $ref: '#/components/responses/401'
       security:
         -
           apiKey: []
@@ -130,6 +142,10 @@ paths:
           description: 'Cidade não encontrada'
         '422':
           description: 'Falha de validação'
+        '403':
+          $ref: '#/components/responses/403'
+        '401':
+          $ref: '#/components/responses/401'
       security:
         -
           apiKey: []
@@ -150,6 +166,10 @@ paths:
           description: 'Successful operation'
         '404':
           description: 'Cidade não encontrada'
+        '403':
+          $ref: '#/components/responses/403'
+        '401':
+          $ref: '#/components/responses/401'
       security:
         -
           apiKey: []
@@ -197,6 +217,10 @@ paths:
               schema:
                 items:
                   $ref: '#/components/schemas/Estado'
+        '403':
+          $ref: '#/components/responses/403'
+        '401':
+          $ref: '#/components/responses/401'
       security:
         -
           apiKey: []
@@ -226,6 +250,10 @@ paths:
                 $ref: '#/components/schemas/Estado'
         '422':
           description: 'Falha de validação'
+        '403':
+          $ref: '#/components/responses/403'
+        '401':
+          $ref: '#/components/responses/401'
       security:
         -
           apiKey: []
@@ -251,6 +279,10 @@ paths:
                 $ref: '#/components/schemas/Estado'
         '404':
           description: 'Estado não encontrado'
+        '403':
+          $ref: '#/components/responses/403'
+        '401':
+          $ref: '#/components/responses/401'
       security:
         -
           apiKey: []
@@ -273,6 +305,10 @@ paths:
           description: 'Estado não encontrado'
         '422':
           description: 'Falha de validação'
+        '403':
+          $ref: '#/components/responses/403'
+        '401':
+          $ref: '#/components/responses/401'
       security:
         -
           apiKey: []
@@ -293,6 +329,10 @@ paths:
           description: 'Successful operation'
         '404':
           description: 'Estado não encontrado'
+        '403':
+          $ref: '#/components/responses/403'
+        '401':
+          $ref: '#/components/responses/401'
       security:
         -
           apiKey: []
@@ -334,6 +374,25 @@ components:
           description: 'A data de atualização do estado'
           type: string
       type: object
+  responses:
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                example: 'X-Api-Key inválida'
+            type: object
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                example: 'Favor fornecer X-Api-Key no header'
+            type: object
   securitySchemes:
     apiKey:
       type: apiKey

@@ -38,7 +38,9 @@ class CidadeController
      *          response=200,
      *          description="successful operation",
      *          @OA\JsonContent(@OA\Items(ref="#/components/schemas/Cidade")),
-     *      )
+     *      ),
+     *      @OA\Response(response=403, ref="#/components/responses/403"),
+     *      @OA\Response(response=401, ref="#/components/responses/401")
      * )
      */
     public function index(RequestInterface $request, ResponseInterface $response)
@@ -80,7 +82,9 @@ class CidadeController
      *      @OA\Response(
      *          response=422,
      *          description="Falha de validação"
-     *      )
+     *      ),
+     *      @OA\Response(response=403, ref="#/components/responses/403"),
+     *      @OA\Response(response=401, ref="#/components/responses/401")
      * )
      */
     public function insert(Request $request, Response $response)
@@ -125,7 +129,9 @@ class CidadeController
      *      @OA\Response(
      *          response=404,
      *          description="Cidade não encontrada"
-     *      )
+     *      ),
+     *      @OA\Response(response=403, ref="#/components/responses/403"),
+     *      @OA\Response(response=401, ref="#/components/responses/401")
      * )
      */
     public function show(Request $request, Response $response, $args)
@@ -160,7 +166,9 @@ class CidadeController
      *      @OA\Response(
      *          response=422,
      *          description="Falha de validação"
-     *      )
+     *      ),
+     *      @OA\Response(response=403, ref="#/components/responses/403"),
+     *      @OA\Response(response=401, ref="#/components/responses/401")
      * )
      */
     public function update(Request $request, Response $response, $args)
@@ -197,7 +205,9 @@ class CidadeController
      *      @OA\Response(
      *          response=404,
      *          description="Cidade não encontrada"
-     *      )
+     *      ),
+     *      @OA\Response(response=403, ref="#/components/responses/403"),
+     *      @OA\Response(response=401, ref="#/components/responses/401")
      * )
      */
     public function delete(Request $request, Response $response, $args)

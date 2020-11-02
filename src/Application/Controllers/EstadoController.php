@@ -34,7 +34,9 @@ class EstadoController
      *          response=200,
      *          description="successful operation",
      *          @OA\JsonContent(@OA\Items(ref="#/components/schemas/Estado")),
-     *      )
+     *      ),
+     *      @OA\Response(response=403, ref="#/components/responses/403"),
+     *      @OA\Response(response=401, ref="#/components/responses/401")
      * )
      */
     public function index(Request $request, Response $response)
@@ -78,7 +80,9 @@ class EstadoController
      *      @OA\Response(
      *          response=422,
      *          description="Falha de validação"
-     *      )
+     *      ),
+     *      @OA\Response(response=403, ref="#/components/responses/403"),
+     *      @OA\Response(response=401, ref="#/components/responses/401")
      * )
      */
     public function insert(Request $request, Response $response)
@@ -116,7 +120,9 @@ class EstadoController
      *      @OA\Response(
      *          response=404,
      *          description="Estado não encontrado"
-     *      )
+     *      ),
+     *      @OA\Response(response=403, ref="#/components/responses/403"),
+     *      @OA\Response(response=401, ref="#/components/responses/401")
      * )
      */
     public function show(Request $request, Response $response, $args)
@@ -147,7 +153,9 @@ class EstadoController
      *      @OA\Response(
      *          response=404,
      *          description="Estado não encontrado"
-     *      )
+     *      ),
+     *      @OA\Response(response=403, ref="#/components/responses/403"),
+     *      @OA\Response(response=401, ref="#/components/responses/401")
      * )
      */
     public function delete(Request $request, Response $response, $args)
@@ -181,7 +189,9 @@ class EstadoController
      *      @OA\Response(
      *          response=422,
      *          description="Falha de validação"
-     *      )
+     *      ),
+     *      @OA\Response(response=403, ref="#/components/responses/403"),
+     *      @OA\Response(response=401, ref="#/components/responses/401")
      * )
      */
     public function update(Request $request, Response $response, $args)
