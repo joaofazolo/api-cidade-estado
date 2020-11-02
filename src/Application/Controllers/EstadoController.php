@@ -24,6 +24,7 @@ class EstadoController
      * @OA\Get(
      *     path="/estado",
      *     tags={"Estado"},
+     *     security={{"apiKey":{}}},
      *     @OA\Parameter(in="query", name="limit", @OA\Schema(type="integer"), description="Limite quantidade"),
      *     @OA\Parameter(in="query", name="sortField", @OA\Schema(type="string"), description="Atributo para ordenar"),
      *     @OA\Parameter(in="query", name="sortType", @OA\Schema(type="string"), description="Tipo da ordenação (ASC ou DESC)"),
@@ -55,6 +56,7 @@ class EstadoController
      * @OA\Post(
      *     path="/estado",
      *     tags={"Estado"},
+     *     security={{"apiKey":{}}},
      *     @OA\RequestBody(
      *          description="successful operation",
      *          @OA\JsonContent(
@@ -104,6 +106,7 @@ class EstadoController
      * @OA\Get(
      *     path="/estado/{estadoId}",
      *     tags={"Estado"},
+     *     security={{"apiKey":{}}},
      *     @OA\Parameter(in="path", name="estadoId", @OA\Schema(type="string"), description="Id do estado", required=true),
      *     @OA\Response(
      *          response=200,
@@ -135,6 +138,7 @@ class EstadoController
      * @OA\Delete(
      *     path="/estado/{estadoId}",
      *     tags={"Estado"},
+     *     security={{"apiKey":{}}},
      *     @OA\Parameter(in="path", name="estadoId", @OA\Schema(type="string"), description="Id do estado", required=true),
      *     @OA\Response(
      *          response=204,
@@ -163,6 +167,7 @@ class EstadoController
     /**
      * @OA\Put(
      *     path="/estado/{estadoId}",
+     *     security={{"apiKey":{}}},
      *     @OA\Parameter(in="path", name="estadoId", @OA\Schema(type="string"), description="Id do estado", required=true),
      *     tags={"Estado"},
      *     @OA\Response(

@@ -66,7 +66,11 @@ var app = new Vue({
   },
   methods: {
       buscarEstado: function () {
-        axios.get('/estado?search='+this.searchString + '&sortField=' + this.campoOrdenacao + '&sortType=' + this.tipoOrdenacao)
+        axios.get('/estado?search='+this.searchString + '&sortField=' + this.campoOrdenacao + '&sortType=' + this.tipoOrdenacao, {
+            headers: {
+                'X-Api-Key': 'chave_segura_da_api'
+            }
+        })
         .then((response) => {
             this.estados = response.data;
         })

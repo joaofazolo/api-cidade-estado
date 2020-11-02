@@ -54,6 +54,9 @@ paths:
               schema:
                 items:
                   $ref: '#/components/schemas/Cidade'
+      security:
+        -
+          apiKey: []
     post:
       tags:
         - Cidade
@@ -80,6 +83,9 @@ paths:
                 $ref: '#/components/schemas/Cidade'
         '422':
           description: 'Falha de validação'
+      security:
+        -
+          apiKey: []
   '/cidade/{cidadeId}':
     get:
       tags:
@@ -102,6 +108,9 @@ paths:
                 $ref: '#/components/schemas/Cidade'
         '404':
           description: 'Cidade não encontrada'
+      security:
+        -
+          apiKey: []
     put:
       tags:
         - Cidade
@@ -121,6 +130,9 @@ paths:
           description: 'Cidade não encontrada'
         '422':
           description: 'Falha de validação'
+      security:
+        -
+          apiKey: []
     delete:
       tags:
         - Cidade
@@ -138,6 +150,9 @@ paths:
           description: 'Successful operation'
         '404':
           description: 'Cidade não encontrada'
+      security:
+        -
+          apiKey: []
   /estado:
     get:
       tags:
@@ -182,6 +197,9 @@ paths:
               schema:
                 items:
                   $ref: '#/components/schemas/Estado'
+      security:
+        -
+          apiKey: []
     post:
       tags:
         - Estado
@@ -208,6 +226,9 @@ paths:
                 $ref: '#/components/schemas/Estado'
         '422':
           description: 'Falha de validação'
+      security:
+        -
+          apiKey: []
   '/estado/{estadoId}':
     get:
       tags:
@@ -230,6 +251,9 @@ paths:
                 $ref: '#/components/schemas/Estado'
         '404':
           description: 'Estado não encontrado'
+      security:
+        -
+          apiKey: []
     put:
       tags:
         - Estado
@@ -249,6 +273,9 @@ paths:
           description: 'Estado não encontrado'
         '422':
           description: 'Falha de validação'
+      security:
+        -
+          apiKey: []
     delete:
       tags:
         - Estado
@@ -266,6 +293,9 @@ paths:
           description: 'Successful operation'
         '404':
           description: 'Estado não encontrado'
+      security:
+        -
+          apiKey: []
 components:
   schemas:
     Cidade:
@@ -304,3 +334,8 @@ components:
           description: 'A data de atualização do estado'
           type: string
       type: object
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      name: X-Api-Key
+      in: header

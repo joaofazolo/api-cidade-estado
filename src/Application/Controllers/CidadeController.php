@@ -28,6 +28,7 @@ class CidadeController
      * @OA\Get(
      *     path="/cidade",
      *     tags={"Cidade"},
+     *     security={{"apiKey":{}}},
      *     @OA\Parameter(in="query", name="limit", @OA\Schema(type="integer"), description="Limite quantidade"),
      *     @OA\Parameter(in="query", name="sortField", @OA\Schema(type="string"), description="Atributo para ordenar"),
      *     @OA\Parameter(in="query", name="sortType", @OA\Schema(type="string"), description="Tipo da ordenação (ASC ou DESC)"),
@@ -57,6 +58,7 @@ class CidadeController
      * @OA\Post(
      *     path="/cidade",
      *     tags={"Cidade"},
+     *     security={{"apiKey":{}}},
      *     @OA\RequestBody(
      *          description="successful operation",
      *          @OA\JsonContent(
@@ -113,6 +115,7 @@ class CidadeController
      * @OA\Get(
      *     path="/cidade/{cidadeId}",
      *     tags={"Cidade"},
+     *     security={{"apiKey":{}}},
      *     @OA\Parameter(in="path", name="cidadeId", @OA\Schema(type="string"), description="Id da cidade", required=true),
      *     @OA\Response(
      *          response=200,
@@ -143,6 +146,7 @@ class CidadeController
     /**
      * @OA\Put(
      *     path="/cidade/{cidadeId}",
+     *     security={{"apiKey":{}}},
      *     @OA\Parameter(in="path", name="cidadeId", @OA\Schema(type="string"), description="Id da cidade", required=true),
      *     tags={"Cidade"},
      *     @OA\Response(
@@ -183,6 +187,7 @@ class CidadeController
     /**
      * @OA\Delete(
      *     path="/cidade/{cidadeId}",
+     *     security={{"apiKey":{}}},
      *     @OA\Parameter(in="path", name="cidadeId", @OA\Schema(type="string"), description="Id da cidade", required=true),
      *     tags={"Cidade"},
      *     @OA\Response(
