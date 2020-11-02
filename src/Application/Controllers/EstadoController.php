@@ -24,6 +24,11 @@ class EstadoController
      * @OA\Get(
      *     path="/estado",
      *     tags={"Estado"},
+     *     @OA\Parameter(in="query", name="limit", @OA\Schema(type="integer"), description="Limite quantidade"),
+     *     @OA\Parameter(in="query", name="sortField", @OA\Schema(type="string"), description="Atributo para ordenar"),
+     *     @OA\Parameter(in="query", name="sortType", @OA\Schema(type="string"), description="Tipo da ordenação (ASC ou DESC)"),
+     *     @OA\Parameter(in="query", name="offset", @OA\Schema(type="integer"), description="Offset"),
+     *     @OA\Parameter(in="query", name="search", @OA\Schema(type="string"), description="String de busca no nome e descrição"),
      *     @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -36,8 +41,10 @@ class EstadoController
         $limit = isset($request->getQueryParams()['limit']) ? (int)$request->getQueryParams()['limit'] : null;
         $offset = isset($request->getQueryParams()['offset']) ? (int)$request->getQueryParams()['offset'] : null;
         $search = isset($request->getQueryParams()['search']) ? $request->getQueryParams()['search'] : null;
+        $sortField = isset($request->getQueryParams()['sortField']) ? $request->getQueryParams()['sortField'] : null;
+        $sortType = isset($request->getQueryParams()['sortType']) ? $request->getQueryParams()['sortType'] : null;
 
-        $estados = $this->repository->findAll($search ,$limit, $offset);
+        $estados = $this->repository->findAll($search ,$limit, $offset, $sortField, $sortType);
 
         $response->getBody()->write(json_encode($estados));
 
@@ -95,8 +102,9 @@ class EstadoController
 
     /**
      * @OA\Get(
-     *     path="/estado/:estadoId",
+     *     path="/estado/{estadoId}",
      *     tags={"Estado"},
+     *     @OA\Parameter(in="path", name="estadoId", @OA\Schema(type="string"), description="Id do estado", required=true),
      *     @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -125,8 +133,9 @@ class EstadoController
 
     /**
      * @OA\Delete(
-     *     path="/estado/:estadoId",
+     *     path="/estado/{estadoId}",
      *     tags={"Estado"},
+     *     @OA\Parameter(in="path", name="estadoId", @OA\Schema(type="string"), description="Id do estado", required=true),
      *     @OA\Response(
      *          response=204,
      *          description="Successful operation"
@@ -153,7 +162,8 @@ class EstadoController
 
     /**
      * @OA\Put(
-     *     path="/estado/:estadoId",
+     *     path="/estado/{estadoId}",
+     *     @OA\Parameter(in="path", name="estadoId", @OA\Schema(type="string"), description="Id do estado", required=true),
      *     tags={"Estado"},
      *     @OA\Response(
      *          response=200,

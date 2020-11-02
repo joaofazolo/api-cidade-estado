@@ -13,19 +13,23 @@
     <div id="app">
         <div>
             <div>
-                Ordenação nome
-                <select name="ordenacaoNome" id="">
-                    <option value="asc">ASC</option>
-                    <option value="desc">DESC</option>
+                Campo para ordenação
+                <select name="campoOrdenacao" v-model="campoOrdenacao" id="campoOrdenacao">
+                    <option value="nome" selected>Nome</option>
+                    <option value="abreviacao">Abreviação</option>
+                    <option value="dataCriacao">Data de criação</option>
+                    <option value="dataAtualizacao">Data de atualização</option>
                 </select>
+                {{campoOrdenacao}}
             </div>
             
             <div>
-                Ordenação abreviacao
-                <select name="ordenacaoAbreviacao" id="">
-                    <option value="asc">ASC</option>
-                    <option value="desc">DESC</option>
+                Tipo da ordenação
+                <select name="tipoOrdenacao" v-model="tipoOrdenacao" id="tipoOrdenacao">
+                    <option value="ASC" selected>Ascendente</option>
+                    <option value="DESC">Descendente</option>
                 </select>
+                {{tipoOrdenacao}}
             </div>
         </div>
         <input type="text" v-model="searchString" id="search">
@@ -35,12 +39,16 @@
                 <tr>
                     <th>Nome</th>
                     <th>Abreviação</th>
+                    <th>Data de criação</th>
+                    <th>Data de atualização</th>
                 </tr>
             </thead>
             <tbody v-for="estado in estados" :key="estado.id">
                 <tr>
                     <td scope="row">{{estado.nome}}</td>
                     <td>{{estado.abreviacao}}</td>
+                    <td>{{estado.dataCriacao}}</td>
+                    <td>{{estado.dataAtualizacao}}</td>
                 </tr>
             </tbody>
         </table>
@@ -54,11 +62,13 @@ var app = new Vue({
   data: {
     searchString: '',
     estados: [],
-    cidades: []
+    cidades: [],
+    campoOrdenacao: '',
+    tipoOrdenacao: ''
   },
   methods: {
       buscarEstado: function () {
-        axios.get('/estado?search='+this.searchString)
+        axios.get('/estado?search='+this.searchString + '&sortField=' + this.campoOrdenacao + '&sortType=' + this.tipoOrdenacao)
         .then((response) => {
             // handle success
             this.estados = response.data;

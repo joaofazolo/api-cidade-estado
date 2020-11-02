@@ -15,6 +15,37 @@ paths:
       tags:
         - Cidade
       operationId: 'App\Application\Controllers\CidadeController::index'
+      parameters:
+        -
+          name: limit
+          in: query
+          description: 'Limite quantidade'
+          schema:
+            type: integer
+        -
+          name: sortField
+          in: query
+          description: 'Atributo para ordenar'
+          schema:
+            type: string
+        -
+          name: sortType
+          in: query
+          description: 'Tipo da ordenação (ASC ou DESC)'
+          schema:
+            type: string
+        -
+          name: offset
+          in: query
+          description: Offset
+          schema:
+            type: integer
+        -
+          name: search
+          in: query
+          description: 'String de busca no nome'
+          schema:
+            type: string
       responses:
         '200':
           description: 'successful operation'
@@ -49,11 +80,19 @@ paths:
                 $ref: '#/components/schemas/Cidade'
         '422':
           description: 'Falha de validação'
-  '/cidade/:cidadeId':
+  '/cidade/{cidadeId}':
     get:
       tags:
         - Cidade
       operationId: 'App\Application\Controllers\CidadeController::show'
+      parameters:
+        -
+          name: cidadeId
+          in: path
+          description: 'Id da cidade'
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: 'Successful operation'
@@ -67,6 +106,14 @@ paths:
       tags:
         - Cidade
       operationId: 'App\Application\Controllers\CidadeController::update'
+      parameters:
+        -
+          name: cidadeId
+          in: path
+          description: 'Id da cidade'
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: 'Successful operation'
@@ -78,6 +125,14 @@ paths:
       tags:
         - Cidade
       operationId: 'App\Application\Controllers\CidadeController::delete'
+      parameters:
+        -
+          name: cidadeId
+          in: path
+          description: 'Id da cidade'
+          required: true
+          schema:
+            type: string
       responses:
         '204':
           description: 'Successful operation'
@@ -88,6 +143,37 @@ paths:
       tags:
         - Estado
       operationId: 'App\Application\Controllers\EstadoController::index'
+      parameters:
+        -
+          name: limit
+          in: query
+          description: 'Limite quantidade'
+          schema:
+            type: integer
+        -
+          name: sortField
+          in: query
+          description: 'Atributo para ordenar'
+          schema:
+            type: string
+        -
+          name: sortType
+          in: query
+          description: 'Tipo da ordenação (ASC ou DESC)'
+          schema:
+            type: string
+        -
+          name: offset
+          in: query
+          description: Offset
+          schema:
+            type: integer
+        -
+          name: search
+          in: query
+          description: 'String de busca no nome e descrição'
+          schema:
+            type: string
       responses:
         '200':
           description: 'successful operation'
@@ -122,11 +208,19 @@ paths:
                 $ref: '#/components/schemas/Estado'
         '422':
           description: 'Falha de validação'
-  '/estado/:estadoId':
+  '/estado/{estadoId}':
     get:
       tags:
         - Estado
       operationId: 'App\Application\Controllers\EstadoController::show'
+      parameters:
+        -
+          name: estadoId
+          in: path
+          description: 'Id do estado'
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: 'Successful operation'
@@ -140,6 +234,14 @@ paths:
       tags:
         - Estado
       operationId: 'App\Application\Controllers\EstadoController::update'
+      parameters:
+        -
+          name: estadoId
+          in: path
+          description: 'Id do estado'
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: 'Successful operation'
@@ -151,6 +253,14 @@ paths:
       tags:
         - Estado
       operationId: 'App\Application\Controllers\EstadoController::delete'
+      parameters:
+        -
+          name: estadoId
+          in: path
+          description: 'Id do estado'
+          required: true
+          schema:
+            type: string
       responses:
         '204':
           description: 'Successful operation'

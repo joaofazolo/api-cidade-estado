@@ -7,7 +7,7 @@ use App\Exception\EstadoNotFoundException;
 
 class EstadoRepository extends Repository
 {
-    public function findAll($search, $limit, $offset): array
+    public function findAll($search, $limit, $offset, $sortField, $sortType): array
     {
         $collection = $this->client->estados;
 
@@ -30,6 +30,16 @@ class EstadoRepository extends Repository
 
         if ($offset) {
             $options['skip'] = $offset;
+        }
+
+        if ($sortField) {
+
+            if ($sortType == 'ASC') {
+                $options['sort'][$sortField] = 1;
+            }
+            if ($sortType == 'DESC') {
+                $options['sort'][$sortField] = -1;
+            }
         }
 
         $cursor = $collection->find($searchArray, $options);

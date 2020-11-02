@@ -6,7 +6,6 @@ use App\Domain\Cidade;
 use App\Exception\EstadoNotFoundException;
 use App\Persistence\CidadeRepository;
 use App\Persistence\EstadoRepository;
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Respect\Validation\Exceptions\ValidationException;
@@ -29,6 +28,11 @@ class CidadeController
      * @OA\Get(
      *     path="/cidade",
      *     tags={"Cidade"},
+     *     @OA\Parameter(in="query", name="limit", @OA\Schema(type="integer"), description="Limite quantidade"),
+     *     @OA\Parameter(in="query", name="sortField", @OA\Schema(type="string"), description="Atributo para ordenar"),
+     *     @OA\Parameter(in="query", name="sortType", @OA\Schema(type="string"), description="Tipo da ordenação (ASC ou DESC)"),
+     *     @OA\Parameter(in="query", name="offset", @OA\Schema(type="integer"), description="Offset"),
+     *     @OA\Parameter(in="query", name="search", @OA\Schema(type="string"), description="String de busca no nome"),
      *     @OA\Response(
      *          response=200,
      *          description="successful operation",
@@ -107,8 +111,9 @@ class CidadeController
 
     /**
      * @OA\Get(
-     *     path="/cidade/:cidadeId",
+     *     path="/cidade/{cidadeId}",
      *     tags={"Cidade"},
+     *     @OA\Parameter(in="path", name="cidadeId", @OA\Schema(type="string"), description="Id da cidade", required=true),
      *     @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -137,7 +142,8 @@ class CidadeController
 
     /**
      * @OA\Put(
-     *     path="/cidade/:cidadeId",
+     *     path="/cidade/{cidadeId}",
+     *     @OA\Parameter(in="path", name="cidadeId", @OA\Schema(type="string"), description="Id da cidade", required=true),
      *     tags={"Cidade"},
      *     @OA\Response(
      *          response=200,
@@ -176,7 +182,8 @@ class CidadeController
 
     /**
      * @OA\Delete(
-     *     path="/cidade/:cidadeId",
+     *     path="/cidade/{cidadeId}",
+     *     @OA\Parameter(in="path", name="cidadeId", @OA\Schema(type="string"), description="Id da cidade", required=true),
      *     tags={"Cidade"},
      *     @OA\Response(
      *          response=204,

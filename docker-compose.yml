@@ -5,8 +5,9 @@ volumes:
         driver: local
 
 services:
-    slim:
-        image: php:7-alpine
+    api:
+        build: 
+            context: .
         working_dir: /var/www
         command: php -S 0.0.0.0:8080 -t public
         environment:
