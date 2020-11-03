@@ -49,8 +49,10 @@ class CidadeController
         $limit = isset($request->getQueryParams()['limit']) ? (int)$request->getQueryParams()['limit'] : null;
         $offset = isset($request->getQueryParams()['offset']) ? (int)$request->getQueryParams()['offset'] : null;
         $search = isset($request->getQueryParams()['search']) ? $request->getQueryParams()['search'] : null;
-
-        $cidades = $this->repository->findAll($search, $limit, $offset);
+        $sortField = isset($request->getQueryParams()['sortField']) ? $request->getQueryParams()['sortField'] : null;
+        $sortType = isset($request->getQueryParams()['sortType']) ? $request->getQueryParams()['sortType'] : null;
+        
+        $cidades = $this->repository->findAll($search, $limit, $offset, $sortField, $sortType);
 
         $response->getBody()->write(json_encode($cidades));
 

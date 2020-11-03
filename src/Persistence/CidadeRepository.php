@@ -7,7 +7,7 @@ use App\Exception\CidadeNotFoundException;
 
 class CidadeRepository extends Repository
 {
-    public function findAll($search, $limit, $offset)
+    public function findAll($search, $limit, $offset, $sortField, $sortType)
     {
         $collection = $this->client->cidades;
 
@@ -30,6 +30,16 @@ class CidadeRepository extends Repository
 
         if ($offset) {
             $options['skip'] = $offset;
+        }
+
+        if ($sortField) {
+
+            if ($sortType == 'ASC') {
+                $options['sort'][$sortField] = 1;
+            }
+            if ($sortType == 'DESC') {
+                $options['sort'][$sortField] = -1;
+            }
         }
 
         $cursor = $collection->find($searchArray, $options);

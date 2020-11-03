@@ -13,12 +13,12 @@
 <body>
     <div id="app">
         <div class="col-6 offset-3">
+            <h1>Pesquisar Cidade</h1>
             <div class="row">
                 <div class="form-group col-6">
                     <label for="campoOrdenacao">Campo para ordenação</label>
                     <select class="form-control" name="campoOrdenacao" v-model="campoOrdenacao" id="campoOrdenacao">
                         <option value="nome" selected>Nome</option>
-                        <option value="abreviacao">Estado</option>
                         <option value="dataCriacao">Data de criação</option>
                         <option value="dataAtualizacao">Data de atualização</option>
                     </select>
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="input-group mb-3">
-                <input v-model="searchString" id="search" type="text" class="form-control" placeholder="Digite parte do nome ou abreviação">
+                <input v-model="searchString" id="search" type="text" class="form-control" placeholder="Digite parte do nome">
                 <div class="input-group-append">
                     <button @click="buscarEstado" class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
                 </div>
@@ -42,7 +42,6 @@
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>Estado</th>
                         <th>Data de criação</th>
                         <th>Data de atualização</th>
                     </tr>
@@ -50,7 +49,6 @@
                 <tbody v-for="cidade in cidades" :key="cidade.id">
                     <tr>
                         <td scope="row">{{cidade.nome}}</td>
-                        <td>{{cidade.es}}</td>
                         <td>{{cidade.dataCriacao}}</td>
                         <td>{{cidade.dataAtualizacao}}</td>
                     </tr>
