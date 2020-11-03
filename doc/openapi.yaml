@@ -1,0 +1,400 @@
+openapi: 3.0.0
+info:
+  title: 'API de cidades e estados'
+  description: 'API para CRUD de cidades e estados desenvolvida em php, slim e mongodb'
+  contact:
+    name: 'João Vitor Fazolo'
+    email: jvfazolo@gmail.com
+  version: '1.0'
+servers:
+  -
+    url: 'http://localhost:8080'
+paths:
+  /cidade:
+    get:
+      tags:
+        - Cidade
+      operationId: 'App\Application\Controllers\CidadeController::index'
+      parameters:
+        -
+          name: limit
+          in: query
+          description: 'Limite quantidade'
+          schema:
+            type: integer
+        -
+          name: sortField
+          in: query
+          description: 'Atributo para ordenar'
+          schema:
+            type: string
+        -
+          name: sortType
+          in: query
+          description: 'Tipo da ordenação (ASC ou DESC)'
+          schema:
+            type: string
+        -
+          name: offset
+          in: query
+          description: Offset
+          schema:
+            type: integer
+        -
+          name: search
+          in: query
+          description: 'String de busca no nome'
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Cidade'
+        '403':
+          $ref: '#/components/responses/403'
+        '401':
+          $ref: '#/components/responses/401'
+      security:
+        -
+          apiKey: []
+    post:
+      tags:
+        - Cidade
+      operationId: 'App\Application\Controllers\CidadeController::insert'
+      requestBody:
+        description: 'successful operation'
+        content:
+          application/json:
+            schema:
+              properties:
+                nome:
+                  description: 'O Nome da cidade'
+                  type: string
+                estadoId:
+                  description: 'ID do estado'
+                  type: string
+              type: object
+      responses:
+        '200':
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cidade'
+        '422':
+          description: 'Falha de validação'
+        '403':
+          $ref: '#/components/responses/403'
+        '401':
+          $ref: '#/components/responses/401'
+      security:
+        -
+          apiKey: []
+  '/cidade/{cidadeId}':
+    get:
+      tags:
+        - Cidade
+      operationId: 'App\Application\Controllers\CidadeController::show'
+      parameters:
+        -
+          name: cidadeId
+          in: path
+          description: 'Id da cidade'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful operation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cidade'
+        '404':
+          description: 'Cidade não encontrada'
+        '403':
+          $ref: '#/components/responses/403'
+        '401':
+          $ref: '#/components/responses/401'
+      security:
+        -
+          apiKey: []
+    put:
+      tags:
+        - Cidade
+      operationId: 'App\Application\Controllers\CidadeController::update'
+      parameters:
+        -
+          name: cidadeId
+          in: path
+          description: 'Id da cidade'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful operation'
+        '404':
+          description: 'Cidade não encontrada'
+        '422':
+          description: 'Falha de validação'
+        '403':
+          $ref: '#/components/responses/403'
+        '401':
+          $ref: '#/components/responses/401'
+      security:
+        -
+          apiKey: []
+    delete:
+      tags:
+        - Cidade
+      operationId: 'App\Application\Controllers\CidadeController::delete'
+      parameters:
+        -
+          name: cidadeId
+          in: path
+          description: 'Id da cidade'
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Successful operation'
+        '404':
+          description: 'Cidade não encontrada'
+        '403':
+          $ref: '#/components/responses/403'
+        '401':
+          $ref: '#/components/responses/401'
+      security:
+        -
+          apiKey: []
+  /estado:
+    get:
+      tags:
+        - Estado
+      operationId: 'App\Application\Controllers\EstadoController::index'
+      parameters:
+        -
+          name: limit
+          in: query
+          description: 'Limite quantidade'
+          schema:
+            type: integer
+        -
+          name: sortField
+          in: query
+          description: 'Atributo para ordenar'
+          schema:
+            type: string
+        -
+          name: sortType
+          in: query
+          description: 'Tipo da ordenação (ASC ou DESC)'
+          schema:
+            type: string
+        -
+          name: offset
+          in: query
+          description: Offset
+          schema:
+            type: integer
+        -
+          name: search
+          in: query
+          description: 'String de busca no nome e descrição'
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Estado'
+        '403':
+          $ref: '#/components/responses/403'
+        '401':
+          $ref: '#/components/responses/401'
+      security:
+        -
+          apiKey: []
+    post:
+      tags:
+        - Estado
+      operationId: 'App\Application\Controllers\EstadoController::insert'
+      requestBody:
+        description: 'successful operation'
+        content:
+          application/json:
+            schema:
+              properties:
+                nome:
+                  description: 'O Nome do estado'
+                  type: string
+                abreviacao:
+                  description: 'A abreviação do estado'
+                  type: string
+              type: object
+      responses:
+        '200':
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Estado'
+        '422':
+          description: 'Falha de validação'
+        '403':
+          $ref: '#/components/responses/403'
+        '401':
+          $ref: '#/components/responses/401'
+      security:
+        -
+          apiKey: []
+  '/estado/{estadoId}':
+    get:
+      tags:
+        - Estado
+      operationId: 'App\Application\Controllers\EstadoController::show'
+      parameters:
+        -
+          name: estadoId
+          in: path
+          description: 'Id do estado'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful operation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Estado'
+        '404':
+          description: 'Estado não encontrado'
+        '403':
+          $ref: '#/components/responses/403'
+        '401':
+          $ref: '#/components/responses/401'
+      security:
+        -
+          apiKey: []
+    put:
+      tags:
+        - Estado
+      operationId: 'App\Application\Controllers\EstadoController::update'
+      parameters:
+        -
+          name: estadoId
+          in: path
+          description: 'Id do estado'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful operation'
+        '404':
+          description: 'Estado não encontrado'
+        '422':
+          description: 'Falha de validação'
+        '403':
+          $ref: '#/components/responses/403'
+        '401':
+          $ref: '#/components/responses/401'
+      security:
+        -
+          apiKey: []
+    delete:
+      tags:
+        - Estado
+      operationId: 'App\Application\Controllers\EstadoController::delete'
+      parameters:
+        -
+          name: estadoId
+          in: path
+          description: 'Id do estado'
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Successful operation'
+        '404':
+          description: 'Estado não encontrado'
+        '403':
+          $ref: '#/components/responses/403'
+        '401':
+          $ref: '#/components/responses/401'
+      security:
+        -
+          apiKey: []
+components:
+  schemas:
+    Cidade:
+      properties:
+        id:
+          description: 'ID da cidade'
+          type: string
+        nome:
+          description: 'Nome da cidade'
+          type: string
+        estadoId:
+          description: 'ID do estado que a cidade pertence'
+          type: string
+        dataCriacao:
+          description: 'Data de criação'
+          type: string
+        dataAtualizacao:
+          description: 'Data de atualização'
+          type: string
+      type: object
+    Estado:
+      properties:
+        id:
+          description: 'O ID do estado'
+          type: string
+        nome:
+          description: 'O nome do estado'
+          type: string
+        abreviacao:
+          description: 'A abreviação do estado'
+          type: string
+        dataCriacao:
+          description: 'A data de criação do estado'
+          type: string
+        dataAtualizacao:
+          description: 'A data de atualização do estado'
+          type: string
+      type: object
+  responses:
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                example: 'X-Api-Key inválida'
+            type: object
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                example: 'Favor fornecer X-Api-Key no header'
+            type: object
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      name: X-Api-Key
+      in: header

@@ -9,6 +9,7 @@ use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
 
 require __DIR__ . '/../vendor/autoload.php';
+date_default_timezone_set('America/Sao_Paulo');
 
 // Instantiate PHP-DI ContainerBuilder
 $containerBuilder = new ContainerBuilder();
@@ -31,6 +32,10 @@ $repositories($containerBuilder);
 
 // Build PHP-DI Container instance
 $container = $containerBuilder->build();
+
+$container->set('view', function () {
+    return new \Slim\Views\PhpRenderer(__DIR__ . '/../src/View/');
+});
 
 // Instantiate the app
 AppFactory::setContainer($container);

@@ -14,6 +14,17 @@ return function (ContainerBuilder $containerBuilder) {
                 'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
                 'level' => Logger::DEBUG,
             ],
+            'database' => [
+                'host' => isset($_ENV['db_host']) ? $_ENV['db_host'] : 'localhost',
+                'user' => isset($_ENV['db_user']) ? $_ENV['db_user'] : 'root',
+                'password' => isset($_ENV['db_password']) ? $_ENV['db_password'] : 'root'
+            ],
+            'secutiry' => [
+                'api_keys' => [
+                    'chave_segura_da_api',
+                    'chav_segura_da_api2'
+                ]
+            ]
         ],
     ]);
 };
