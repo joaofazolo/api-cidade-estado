@@ -46,7 +46,7 @@ class Cidade implements JsonSerializable
     /**
      * @param string|null  $id
      * @param string    $nome
-     * @param string   $estadoId
+     * @param string    $estadoId
      * @param string    $lastName
      * @param string    $dataCriacao
      * @param string    $dataAtualizacao

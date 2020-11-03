@@ -49,7 +49,11 @@ return function (App $app) {
     })->add(new ApiKeyMiddleware($app->getContainer()));
     
 
-    $app->get('/home', function ($request, $response, $args) {
-        return $this->get('view')->render($response, 'home.php', []);
+    $app->get('/pesquisarCidade', function ($request, $response, $args) {
+        return $this->get('view')->render($response, 'cidade.php', []);
+    });
+
+    $app->get('/pesquisarEstado', function ($request, $response, $args) {
+        return $this->get('view')->render($response, 'estado.php', []);
     });
 };

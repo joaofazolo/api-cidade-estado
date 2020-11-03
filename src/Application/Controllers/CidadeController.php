@@ -3,6 +3,7 @@
 namespace App\Application\Controllers;
 
 use App\Domain\Cidade;
+use App\Exception\CidadeNotFoundException;
 use App\Exception\EstadoNotFoundException;
 use App\Persistence\CidadeRepository;
 use App\Persistence\EstadoRepository;

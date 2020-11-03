@@ -3,8 +3,7 @@
 namespace App\Persistence;
 
 use App\Domain\Cidade;
-use DI\NotFoundException;
-use Exception;
+use App\Exception\CidadeNotFoundException;
 
 class CidadeRepository extends Repository
 {
@@ -59,7 +58,7 @@ class CidadeRepository extends Repository
         $documento = $collection->findOne(['_id' =>  new \MongoDB\BSON\ObjectId($id)]);
 
         if (is_null($documento)) {
-            throw new Exception('Cidade nao encotrado');
+            throw new CidadeNotFoundException();
         }
 
         $cidade = new Cidade((string)$documento->_id, $documento['nome'], $documento['estadoId'], $documento['dataCriacao'], $documento['dataAtualizacao']);
@@ -92,7 +91,7 @@ class CidadeRepository extends Repository
         );
 
         if ($updateResult->getMatchedCount() < 1) {
-            throw new NotFoundException('Cidade não encontrado');
+            throw new CidadeNotFoundException('Cidade não encontrado');
         }
 
         return true;
@@ -105,7 +104,7 @@ class CidadeRepository extends Repository
         $deleteResult = $collection->deleteOne(['_id' => new \MongoDB\BSON\ObjectId($id)]);
 
         if($deleteResult->getDeletedCount() < 1) {
-            throw new NotFoundException('Cidade não encontrado');
+            throw new CidadeNotFoundException('Cidade não encontrado');
         }
 
         return true;
