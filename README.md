@@ -1,42 +1,36 @@
-# Slim Framework 4 Skeleton Application
+# API para crud de cidades e estados utilizando php, slim e mondogb
 
-[![Coverage Status](https://coveralls.io/repos/github/slimphp/Slim-Skeleton/badge.svg?branch=master)](https://coveralls.io/github/slimphp/Slim-Skeleton?branch=master)
+## Instalar dependências
 
-Use this skeleton application to quickly setup and start working on a new Slim Framework 4 application. This application uses the latest Slim 4 with Slim PSR-7 implementation and PHP-DI container implementation. It also uses the Monolog logger.
-
-This skeleton application was built for Composer. This makes setting up a new Slim Framework application quick and easy.
-
-## Install the Application
-
-Run this command from the directory in which you want to install your new Slim Framework application.
+Rode este comando na raiz do projeto.
 
 ```bash
-composer create-project slim/slim-skeleton [my-app-name]
+composer install
 ```
 
-Replace `[my-app-name]` with the desired directory name for your new application. You'll want to:
+## Rodar o projeto
 
-* Point your virtual host document root to your new application's `public/` directory.
-* Ensure `logs/` is web writable.
-
-To run the application in development, you can run these commands 
+Para rodar a aplicação em desenvolvimento rode este comando na raiz
 
 ```bash
-cd [my-app-name]
 composer start
 ```
 
-Or you can use `docker-compose` to run the app with `docker`, so you can run these commands:
-```bash
-cd [my-app-name]
-docker-compose up -d
-```
-After that, open `http://localhost:8080` in your browser.
-
-Run this command in the application directory to run the test suite
+Ou você pode usar `docker-compose` para rodar a aplicação com `docker`. Para isto rode estes comando na raiz:
 
 ```bash
-composer test
+docker-compose up -d --build
 ```
 
-That's it! Now go build something cool.
+Este comando iniciará tanto a aplicação em `http://localhost:8080` quanto o container do banco e do cliente para o banco que pode ser acessado digitando `http://localhost:8081` no seu browser
+
+## Telas de pesquisa
+As telas de pesquisa de cidade e estado se encontram em `http://localhost:8080/pesquisarCidade` e `http://localhost:8080/pesquisarEstado` respectivamente
+
+## Documentação da api
+Para gerar a documentação rode
+
+```bash
+./vendor/bin/openapi -o doc ./src ./app ./doc
+```
+a documentação será gerada no formato OpenAPI 3 em doc/openapi.yaml
